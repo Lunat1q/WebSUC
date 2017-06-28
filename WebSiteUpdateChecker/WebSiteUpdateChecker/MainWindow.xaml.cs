@@ -8,7 +8,6 @@ using Windows.UI.Notifications;
 using Microsoft.Toolkit.Uwp.Notifications;
 using TiqUtils.Serialize;
 using TiqUtils.TypeSpeccific;
-using TiQWpfUtils;
 using TiQWpfUtils.Color;
 using TiQWpfUtils.Controls.Extensions;
 

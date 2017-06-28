@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSiteUpdateChecker", "WebSiteUpdateChecker\WebSiteUpdateChecker.csproj", "{159804D8-77FE-4798-8360-CD0778A1A061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiQWpfUtils", "D:\Coding\TiQWpfUtils\TiQWpfUtils\TiQWpfUtils.csproj", "{B03903AE-CB73-4DAB-91D8-439F4AAD4806}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiQWpfUtils", "..\TiqWpfUtils\TiQWpfUtils\TiQWpfUtils.csproj", "{B03903AE-CB73-4DAB-91D8-439F4AAD4806}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiqUtils", "D:\Coding\TiqUtils\TiqUtils.csproj", "{ADD36AFD-5E81-40E7-93F8-381CF03C5FD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiqUtils", "..\TiqUtils\TiqUtils.csproj", "{ADD36AFD-5E81-40E7-93F8-381CF03C5FD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

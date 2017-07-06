@@ -8,7 +8,7 @@ using Windows.UI.Notifications;
 using Microsoft.Toolkit.Uwp.Notifications;
 using TiqUtils.Serialize;
 using TiqUtils.TypeSpeccific;
-using TiQWpfUtils.Color;
+using TiQWpfUtils;
 using TiQWpfUtils.Controls.Extensions;
 
 namespace WebSiteUpdateChecker
@@ -78,6 +78,7 @@ namespace WebSiteUpdateChecker
                 _webWatcher = new WebWatcher(UrlBox.Text, 30, TagBox.Text);
                 _webWatcher.LogEntry += WebWatcherOnLogEntry;
                 _webWatcher.NewFound += WebWatcherOnNewFound;
+                _webWatcher.Stopped += WebWatcherOnStopped;
                 _webWatcher.CheckDone += WebWatcherOnCheckDone;
                 Task.Run(() => _webWatcher.Run());
             }
@@ -85,6 +86,12 @@ namespace WebSiteUpdateChecker
             {
                 _webWatcher.Stop();
             }
+        }
+
+        private void WebWatcherOnStopped(string text, int level)
+        {
+            WebWatcherOnLogEntry(text, level);
+            Dispatcher.Invoke(new ThreadStart(ToggleUi));
         }
 
         private void WebWatcherOnCheckDone(int count)
@@ -105,6 +112,13 @@ namespace WebSiteUpdateChecker
             }));
         }
 
+        private void WebWatcherOnLogEntry(string text, int level)
+        {
+            Dispatcher.Invoke(new ThreadStart(delegate
+            {
+                LogBox.AppendParagraph(text.WrapTimeStamp(), ColorUtils.GetColorFromLevel(level));
+            }));
+        }
 
         private bool CheckPromoExists(string text)
         {
@@ -149,14 +163,7 @@ namespace WebSiteUpdateChecker
 
             ToastNotificationManager.CreateToastNotifier(Title).Show(toast);
         }
-
-        private void WebWatcherOnLogEntry(string text, int level)
-        {
-            Dispatcher.Invoke(new ThreadStart(delegate
-            {
-                LogBox.AppendParagraph(text.WrapTimeStamp(), ColorUtils.GetColorFromLevel(level));
-            }));
-        }
+       
 
         private void Window_Activated(object sender, EventArgs e)
         {

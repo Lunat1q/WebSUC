@@ -14,6 +14,7 @@ namespace WebSiteUpdateChecker
 
         public delegate void CheckCounter(int count);
 
+        public event EventLog Stopped;
         public event EventLog LogEntry;
         public event EventLog NewFound;
         public event CheckCounter CheckDone;
@@ -68,15 +69,21 @@ namespace WebSiteUpdateChecker
 
                     var tempNode = htmlDoc.DocumentNode.SelectNodes(WatchElement);
 
-                    var node = WatchLast ? tempNode.LastOrDefault() : tempNode.FirstOrDefault();
+                    var node = WatchLast ? tempNode?.LastOrDefault() : tempNode?.FirstOrDefault();
 
-                    if (node == null) return;
+                    if (node == null)
+                    {
+                        OnStopped("Target node not found, stopping!", 0);
+                        Running = false;
+                        return;
+                    }
 
                     var innerText = ClearText(node.InnerText);
 
                     if (string.IsNullOrEmpty(_previousState))
                     {
                         _previousState = innerText;
+                        OnLogEntry($"Record found, start value: {_previousState}", 1);
                     }
                     if (_previousState != innerText)
                     {
@@ -122,6 +129,11 @@ namespace WebSiteUpdateChecker
             }
             _count += count;
             CheckDone?.Invoke(_count);
+        }
+
+        private void OnStopped(string text, int level)
+        {
+            Stopped?.Invoke(text, level);
         }
     }
 }

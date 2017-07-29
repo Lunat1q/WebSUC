@@ -28,7 +28,7 @@ namespace WebSiteUpdateChecker
 
         private void Init()
         {
-            var prev = Json.DeserializeDataJson<PrevState>(PrevPath);
+            var prev = Json.DeserializeDataFromFile<PrevState>(PrevPath);
             if (prev == null) return;
             UrlBox.Text = prev.Url;
             TagBox.Text = prev.Element;
